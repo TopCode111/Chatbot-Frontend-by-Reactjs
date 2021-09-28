@@ -1,0 +1,21 @@
+<svg width="342px" height="343px" viewBox="0 0 342 343" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>AB Gradient Color</title>
+    <style>
+     @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i");
+    </style>
+    <defs>
+        <linearGradient x1="0%" y1="100%" x2="0%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#FFB330" offset="0%"></stop>
+            <stop stop-color="#FFFCCE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-128.000000, -572.000000)" fill-rule="nonzero">
+            <g id="AB-Gradient-Color" transform="translate(128.000000, 572.000000)">
+                <path d="M171,0 C265.440133,0 342,76.5598667 342,171 C342,265.440133 265.440133,342 171,342 C76.5598667,342 0,265.440133 0,171 C0,76.5598667 76.5598667,0 171,0 Z" id="Path" fill="url(#linearGradient-1)"/>
+                <text xmlns="http://www.w3.org/2000/svg" id="AB" fill="#FFFFFF" font-family="'Open Sans', sans-serif" font-size="163.455882" font-weight="normal" dominant-baseline="middle" text-anchor="middle" x="50%" y="55%">R</text>
+            </g>
+        </g>
+    </g>
+</svg>
+        
