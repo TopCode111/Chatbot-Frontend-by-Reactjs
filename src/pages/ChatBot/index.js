@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import ChatBot from 'react-simple-chatbot';
+import { useState } from "react";
+import ChatBot from "react-simple-chatbot";
 import { Box } from "@material-ui/core";
 import SearchBar from "../../components/SearchBar";
-import BotChat from './components/BotChat'
+import BotChat from "./components/BotChat";
+import VoiceRecord from "./components/VoiceRecord/VoiceRecord";
+// import RecorderControls from "./components/recorderControls";
 import { makeStyles } from "@material-ui/core/styles";
 import LocalStorageService from "../../utils/localStorageService";
 // import { useFetchAllUsers } from "../../hooks/users/useUsers";
@@ -30,62 +32,108 @@ const BotRedirect = ({ url, message }) => {
     </div>
   );
 };
-
 const ChatPage = () => {
   const currentUser = localStorageService.getCurrentUser();
+  // const classes = useStyles();
 
-  const classes = useStyles();
   const steps = [
     {
-      id: '1',
-      message: 'おはよう！',
-      trigger: 'search',
+      id: "1",
+      message: "おはよう！",
+      trigger: "search",
     },
     {
-      id: 'search',
+      id: "search",
       user: true,
       validator: (value) => {
         if (!value) {
-          return '入力してください！';
+          return "入力してください！";
         }
         return true;
       },
-      trigger: '3',
+      trigger: "3",
     },
     {
-      id: '3',
+      id: "3",
       component: <BotChat />,
       waitAction: true,
-      trigger: 'search',
+      trigger: "search",
     },
   ];
 
   var userImageURL = "";
-  if(currentUser?.profile?.avatar.length === 0) {
-    userImageURL = '/man.png';
+  if (currentUser?.profile?.avatar?.length === 0) {
+    userImageURL = "/man.png";
   } else {
     userImageURL = currentUser.profile.avatar;
   }
-
-  console.log('userImageURL', userImageURL);
-
   return (
-    <Box style={{width: '100%', display: 'flex', justifyContent: 'center', flexGrow: 1, paddingTop: 30, paddingBottom: 30}}>
-      <ChatBot 
-        steps={steps} 
+    <Box
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        flexGrow: 1,
+        paddingTop: 30,
+        paddingBottom: 30,
+      }}
+    >
+      <ChatBot
+        steps={steps}
         hideHeader={true}
-        classeName={'myclassname'}
-        avatarStyle={{background: 'none', boxShadow: 'none'}}
-        bubbleStyle={{background: '#e7e6e6', borderRadius: '10px', color: 'black', border: '1px solid', borderColor: '#b9b6b6', overflowWrap: 'anywhere'}}
-        inputStyle={{border: '1px solid', borderColor: '#31538f', borderRadius: '0px'}}
-        submitButtonStyle={{backgroundColor: '#4472c4', borderRadius: '0px', height: '100%'}}
-        style={{border: 'none', borderRadius: '0px', boxShadow: 'none', width: '650px', display: 'flex', flexDirection: 'column', height: '100%'}}
-        customStyle={{background: 'none', boxShadow: 'none', display: 'flex', justifyContent: 'flex-start', margin: 0, padding: 0}}
-        botAvatar='/bot_avatar.svg'
+        classeName={"myclassname"}
+        avatarStyle={{ background: "none", boxShadow: "none" }}
+        bubbleStyle={{
+          background: "#e7e6e6",
+          borderRadius: "10px",
+          color: "black",
+          border: "1px solid",
+          borderColor: "#b9b6b6",
+          overflowWrap: "anywhere",
+        }}
+        inputStyle={{
+          border: "1px solid",
+          borderColor: "#31538f",
+          borderRadius: "0px",
+        }}
+        submitButtonStyle={{
+          backgroundColor: "#4472c4",
+          borderRadius: "0px",
+          height: "100%",
+        }}
+        style={{
+          border: "none",
+          borderRadius: "0px",
+          boxShadow: "none",
+          width: "650px",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+        }}
+        customStyle={{
+          background: "none",
+          boxShadow: "none",
+          display: "flex",
+          justifyContent: "flex-start",
+          margin: 0,
+          padding: 0,
+        }}
+        botAvatar="/bot_avatar.svg"
         userAvatar={userImageURL}
         placeholder="入力してください。"
-        contentStyle={{flexGrow: 1}}
+        contentStyle={{ flexGrow: 1 }}
       />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          flexDirection: "column",
+          position: "relative",
+        }}
+      >
+        {/* Voice Recorder Component */}
+        <VoiceRecord />
+      </div>
     </Box>
   );
 };
