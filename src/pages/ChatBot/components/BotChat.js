@@ -12,6 +12,7 @@ const BotChat = ({ steps, triggerNextStep }) => {
 
   const loading = status === "idle" || status === "pending";
   const search = steps?.search?.value;
+
   useEffect(() => {
     if (search) {
       const getChatResponse = (userMessage) => {

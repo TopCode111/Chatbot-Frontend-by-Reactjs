@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Message = ({ message, audio }) => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <div className={classes.avatarWrap}>

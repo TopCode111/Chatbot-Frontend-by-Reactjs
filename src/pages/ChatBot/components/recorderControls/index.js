@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { formatMinutes, formatSeconds } from "../utils/format-time";
 import { interceptor } from "../../../../utils/interceptor";
-import LocalStorageService from "../../../../utils/localStorageService";
 import "./styles.css";
 
-const localStorageService = LocalStorageService.getService();
 const axiosInstance = interceptor();
-const token = localStorageService.getAccessToken();
-const RecorderControls = ({ recorderState, handlers, encodedAudio }) => {
+
+const RecorderControls = ({
+  recorderState,
+  handlers,
+  encodedAudio,
+  handleAddText,
+}) => {
   const { recordingMinutes, recordingSeconds, initRecording } = recorderState;
   const { startRecording, saveRecording, cancelRecording } = handlers;
   const [cancelRec, setCancelRec] = useState(false);
@@ -18,28 +21,23 @@ const RecorderControls = ({ recorderState, handlers, encodedAudio }) => {
 
   const handleSaveVoice = () => {
     setCancelRec(true);
-    const payload = {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: encodedAudio,
-    };
-
     if (encodedAudio && cancelRec) {
       axiosInstance
-        .post(`/api/chatbot/speechtotext`, payload)
+        .post(`/api/chatbot/speechtotext`, { data_uri: encodedAudio })
         .then((response) => {
-          if (response) return response.data;
-          else return "もう一度入力してください！";
+          if (response) {
+            localStorage.setItem("speechResponse", response?.data?.text);
+            handleAddText();
+          } else return "もう一度入力してください！";
         })
         .catch((error) => "ネットワークエラー!もう一度入力してください。");
     }
   };
+
   const handleReccord = () => {
     setCancelRec(false);
   };
+
   return (
     <div className="controls-container">
       <div className="recorder-display">

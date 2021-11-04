@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ChatBot from "react-simple-chatbot";
 import { Box, ListItem } from "@material-ui/core";
 import SearchBar from "../../components/SearchBar";
@@ -31,6 +31,7 @@ const BotRedirect = ({ url, message }) => {
     </div>
   );
 };
+
 const ChatPage = () => {
   const currentUser = localStorageService.getCurrentUser();
   // const classes = useStyles();
@@ -66,6 +67,16 @@ const ChatPage = () => {
   } else {
     userImageURL = currentUser.profile.avatar;
   }
+
+  const handleAddText = () => {
+    let ls = localStorage.getItem("speechResponse");
+    let textInput = document.querySelector("input");
+    if (ls !== "") {
+      textInput.value = ls;
+      console.log(ls);
+    }
+  };
+
   return (
     <Box
       style={{
@@ -78,6 +89,7 @@ const ChatPage = () => {
       }}
     >
       <ChatBot
+        // recognitionEnable={true}
         steps={steps}
         hideHeader={true}
         classeName={"myclassname"}
@@ -131,7 +143,7 @@ const ChatPage = () => {
         }}
       >
         {/* Voice Recorder Component */}
-        <VoiceRecord />
+        <VoiceRecord handleAddText={handleAddText} />
       </div>
     </Box>
   );
