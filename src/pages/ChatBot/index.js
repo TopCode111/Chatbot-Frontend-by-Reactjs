@@ -8,6 +8,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import LocalStorageService from "../../utils/localStorageService";
 // import { useFetchAllUsers } from "../../hooks/users/useUsers";
 // import { useCurrentUser } from "../../hooks/auth/useCurrentUser";
+import { interceptor } from "../../utils/interceptor";
+
+const axiosInstance = interceptor();
 
 const localStorageService = LocalStorageService.getService();
 const useStyles = makeStyles((theme) => ({
@@ -45,12 +48,15 @@ const ChatPage = () => {
     {
       id: "search",
       user: true,
-      validator: (value) => {
-        if (!value) {
-          return "入力してください！";
-        }
-        return true;
-      },
+
+      validator: false,
+      // validator: (value) => {
+      //   // console.log( value,"value")
+      //     // if (!value) {
+      //     //   return "入力してください！";
+      //     // }
+      //     return true;
+      // },
       trigger: "3",
     },
     {
@@ -70,10 +76,11 @@ const ChatPage = () => {
 
   const handleAddText = () => {
     let ls = localStorage.getItem("speechResponse");
-    let textInput = document.querySelector("input");
+    let textInput = document.querySelector(".rsc-input");
     if (ls !== "") {
-      textInput.value = ls;
-      console.log(ls);
+      textInput.setAttribute("value", ls);
+      textInput.focus();
+      console.log(ls, "ls");
     }
   };
 
@@ -89,7 +96,8 @@ const ChatPage = () => {
       }}
     >
       <ChatBot
-        // recognitionEnable={true}
+        recognitionEnable={true}
+        speechSynthesis={{ enable: true, lang: "en" }}
         steps={steps}
         hideHeader={true}
         classeName={"myclassname"}
