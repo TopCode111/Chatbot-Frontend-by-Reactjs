@@ -32,10 +32,11 @@
 }
 
 .recording-time {
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 0.9rem;
 }
 
 .cancel-button-container {
@@ -78,6 +79,7 @@
   width: 40px;
   height: 40px;
   position: relative;
+  left: 1rem;
 }
 .save-record {
   border: 0;
@@ -87,8 +89,10 @@
   font-size: 1.3rem;
   position: absolute;
   color: #4a4a4a;
-  top: -3px;
-  right: -12px;
+  top: -1px;
+  right: 29px;
+  /* top: -3px;
+  right: -12px; */
   opacity: 1;
   outline: none;
   padding: 1rem 5px;
@@ -96,7 +100,8 @@
   justify-content: center;
   align-items: center;
   -webkit-appearance: none;
-  background-color: #4472c4;
+  cursor: pointer;
+  /* background-color: #4472c4; */
 }
 .border-none {
   border: none;

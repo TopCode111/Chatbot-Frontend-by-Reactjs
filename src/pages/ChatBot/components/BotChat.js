@@ -9,9 +9,10 @@ const BotChat = ({ steps, triggerNextStep }) => {
   const { data, status, error, setData, run } = useAsync();
   const [audio, setAudio] = useState(null);
   const [questionResponse, setQuestionResponse] = useState(null);
-
+  
   const loading = status === "idle" || status === "pending";
-  const search = steps?.search?.value;
+  const search = steps?.search?.value ;
+
   useEffect(() => {
     if (search) {
       const getChatResponse = (userMessage) => {

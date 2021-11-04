@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ChatBot from "react-simple-chatbot";
 import { Box, ListItem } from "@material-ui/core";
 import SearchBar from "../../components/SearchBar";
@@ -8,6 +8,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import LocalStorageService from "../../utils/localStorageService";
 // import { useFetchAllUsers } from "../../hooks/users/useUsers";
 // import { useCurrentUser } from "../../hooks/auth/useCurrentUser";
+import { interceptor } from "../../utils/interceptor";
+
+const axiosInstance = interceptor();
 
 const localStorageService = LocalStorageService.getService();
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +34,7 @@ const BotRedirect = ({ url, message }) => {
     </div>
   );
 };
+
 const ChatPage = () => {
   const currentUser = localStorageService.getCurrentUser();
   // const classes = useStyles();
@@ -44,12 +48,15 @@ const ChatPage = () => {
     {
       id: "search",
       user: true,
-      validator: (value) => {
-        if (!value) {
-          return "入力してください！";
-        }
-        return true;
-      },
+
+      validator: false,
+      // validator: (value) => {
+      //   // console.log( value,"value")
+      //     // if (!value) {
+      //     //   return "入力してください！";
+      //     // }
+      //     return true;
+      // },
       trigger: "3",
     },
     {
@@ -66,6 +73,17 @@ const ChatPage = () => {
   } else {
     userImageURL = currentUser.profile.avatar;
   }
+
+  const handleAddText = () => {
+    let ls = localStorage.getItem("speechResponse");
+    let textInput = document.querySelector(".rsc-input");
+    if (ls !== "") {
+      textInput.setAttribute("value", ls);
+      textInput.focus();
+      console.log(ls, "ls");
+    }
+  };
+
   return (
     <Box
       style={{
@@ -78,6 +96,8 @@ const ChatPage = () => {
       }}
     >
       <ChatBot
+        recognitionEnable={true}
+        speechSynthesis={{ enable: true, lang: "en" }}
         steps={steps}
         hideHeader={true}
         classeName={"myclassname"}
@@ -131,7 +151,7 @@ const ChatPage = () => {
         }}
       >
         {/* Voice Recorder Component */}
-        <VoiceRecord />
+        <VoiceRecord handleAddText={handleAddText} />
       </div>
     </Box>
   );

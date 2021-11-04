@@ -4,7 +4,7 @@ import RecorderControls from "../recorderControls";
 import useRecorder from "../hooks/useRecorder";
 import "./styles.css";
 
-const VoiceRecord = () => {
+const VoiceRecord = ({handleAddText}) => {
   const { encodedAudio, recorderState, ...handlers } = useRecorder();
 
   return (
@@ -14,6 +14,7 @@ const VoiceRecord = () => {
           recorderState={recorderState}
           handlers={handlers}
           encodedAudio={encodedAudio}
+          handleAddText={handleAddText}
         />
 
         {/* <RecordingsList audio={audio} /> */}
