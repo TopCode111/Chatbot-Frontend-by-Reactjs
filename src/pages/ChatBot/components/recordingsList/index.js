@@ -3,9 +3,8 @@ import useRecordingsList from "../hooks/use-recordings-list";
 import "./styles.css";
 
 const RecordingsList = ({ audio }) => {
-  console.log(audio, "audio");
-
   const { recordings, deleteAudio } = useRecordingsList(audio);
+  console.log(recordings, "audio");
   return (
     <div className="recordings-container">
       {recordings.length > 0 ? (

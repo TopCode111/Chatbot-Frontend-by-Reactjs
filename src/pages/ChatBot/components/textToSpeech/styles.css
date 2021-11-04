@@ -1,0 +1,16 @@
+.text-speech {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-left: 1rem;
+}
+.text-speech:hover {
+  background-color: #4884f2;
+  color: white;
+}

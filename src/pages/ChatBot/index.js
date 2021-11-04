@@ -1,10 +1,9 @@
-import { useState } from "react";
+import React from "react";
 import ChatBot from "react-simple-chatbot";
-import { Box } from "@material-ui/core";
+import { Box, ListItem } from "@material-ui/core";
 import SearchBar from "../../components/SearchBar";
 import BotChat from "./components/BotChat";
 import VoiceRecord from "./components/VoiceRecord/VoiceRecord";
-// import RecorderControls from "./components/recorderControls";
 import { makeStyles } from "@material-ui/core/styles";
 import LocalStorageService from "../../utils/localStorageService";
 // import { useFetchAllUsers } from "../../hooks/users/useUsers";
@@ -119,7 +118,7 @@ const ChatPage = () => {
           padding: 0,
         }}
         botAvatar="/bot_avatar.svg"
-        userAvatar={userImageURL}
+        // userAvatar={userImageURL}
         placeholder="入力してください。"
         contentStyle={{ flexGrow: 1 }}
       />

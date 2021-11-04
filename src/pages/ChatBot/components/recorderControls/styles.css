@@ -2,7 +2,7 @@
   height: 15%;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .recorder-display {
