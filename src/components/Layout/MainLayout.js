@@ -14,7 +14,7 @@ import SendIcon from "@material-ui/icons/Send";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link, useHistory } from "react-router-dom";
 import { useCurrentUser } from "../../hooks/auth/useCurrentUser";
-import { useAppContext } from '../../store/AppContext';
+import { useAppContext } from "../../store/AppContext";
 import "../index.css";
 import { useUserContext } from "../../store/UserContext";
 import LocalStorageService from "../../utils/localStorageService";
@@ -24,26 +24,26 @@ const localStorageService = LocalStorageService.getService();
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column'
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
   },
   title: {
-    flexGrow: 1,    
-    textAlign: 'center'
+    flexGrow: 1,
+    textAlign: "center",
   },
   menu: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   first: {
-    color: 'white',
-    textTransform: 'uppercase'
+    color: "white",
+    textTransform: "uppercase",
   },
   chat: {
     paddingLeft: 20,
-    color: 'white'
-  }
+    color: "white",
+  },
 }));
 const StyledMenu = withStyles({
   paper: {
@@ -78,7 +78,7 @@ const StyledMenuItem = withStyles((theme) => ({
 export default function ButtonAppBar({ children }) {
   const classes = useStyles();
   const history = useHistory();
-  const { authData, setAuthData  } = useUserContext();
+  const { authData, setAuthData } = useUserContext();
   const current = null;
   const { data: currentUser } = useCurrentUser();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -96,11 +96,19 @@ export default function ButtonAppBar({ children }) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Typography variant="span"><Link className={classes.first} to="/">Robopro</Link></Typography>
-            <Typography variant="span"><Link className={classes.chat} to="/chat">チャットボット</Link></Typography>
+            <Typography variant="span">
+              <Link className={classes.first} to="/">
+                Robopro
+              </Link>
+            </Typography>
+            <Typography variant="span">
+              <Link className={classes.chat} to="/chat">
+                チャットボット
+              </Link>
+            </Typography>
           </Typography>
           {authData ? (
-            <div className={classes.menu}>              
+            <div className={classes.menu}>
               <button
                 className="menu-button"
                 aria-haspopup="true"
@@ -124,7 +132,6 @@ export default function ButtonAppBar({ children }) {
                         }}
                       ></div>
                     )}
-                    
                   </>
                 )}
               </button>
@@ -134,7 +141,7 @@ export default function ButtonAppBar({ children }) {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-              >                
+              >
                 {currentUser?.is_superuser == true ? (
                   <StyledMenuItem>
                     <Link to="/users">
@@ -177,6 +184,7 @@ export default function ButtonAppBar({ children }) {
                         setAuthData(null);
                         history.push("/login");
                       }}
+                      to=""
                     >
                       <Typography variant="h6">ログアウト</Typography>{" "}
                     </Link>
@@ -187,10 +195,11 @@ export default function ButtonAppBar({ children }) {
           ) : (
             <>
               {" "}
-              <Box mx={2}
+              <Box
+                mx={2}
                 style={{
-                  position: 'absolute',
-                  right: '65px',
+                  position: "absolute",
+                  right: "65px",
                 }}
               >
                 <Link to="/login">
@@ -198,10 +207,11 @@ export default function ButtonAppBar({ children }) {
                   <Typography variant="h6">ログイン</Typography>{" "}
                 </Link>
               </Box>
-              <Box mx={2}
+              <Box
+                mx={2}
                 style={{
-                  position: 'absolute',
-                  right: '5px',
+                  position: "absolute",
+                  right: "5px",
                 }}
               >
                 <Link to="/signup">

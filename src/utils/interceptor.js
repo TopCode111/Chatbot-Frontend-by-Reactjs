@@ -4,7 +4,8 @@ const localStorageService = LocalStorageService.getService();
 
 export const interceptor = () => {
   const axiosInstance = axios.create({
-    baseURL: "http://35.76.67.122",
+    baseURL: "http://54.168.149.127",
+    // baseURL: "http://35.76.67.122",
   });
   axiosInstance.interceptors.request.use(
     (config) => {
@@ -23,7 +24,7 @@ export const interceptor = () => {
     (response) => {
       return response;
     },
-    function (error) {
+    function(error) {
       if (error.response.status === 401) {
         localStorageService.setToken("");
       }

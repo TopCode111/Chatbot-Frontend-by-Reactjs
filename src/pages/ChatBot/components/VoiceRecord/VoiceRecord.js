@@ -1,12 +1,12 @@
 import React from "react";
 import RecorderControls from "../recorderControls";
-import RecordingsList from "../recordingsList";
+// import RecordingsList from "../recordingsList";
 import useRecorder from "../hooks/useRecorder";
 import "./styles.css";
 
 const VoiceRecord = () => {
   const { encodedAudio, recorderState, ...handlers } = useRecorder();
-  const { audio } = recorderState;
+
   return (
     <>
       <div className="voice-record-content">
@@ -15,7 +15,8 @@ const VoiceRecord = () => {
           handlers={handlers}
           encodedAudio={encodedAudio}
         />
-        <RecordingsList audio={audio} />
+
+        {/* <RecordingsList audio={audio} /> */}
       </div>
     </>
   );

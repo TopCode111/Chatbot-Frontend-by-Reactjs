@@ -35,27 +35,10 @@ const RecorderControls = ({ recorderState, handlers, encodedAudio }) => {
           else return "もう一度入力してください！";
         })
         .catch((error) => "ネットワークエラー!もう一度入力してください。");
-      // var fd = new FormData();
-      // fd.append("audio", encodedAudio);
-      // try {
-      //   const speechDetails = axiosInstance.post("/api/chatbot/speechtotext", {
-      //     headers: {
-      //       Authorization: `${token}`,
-      //       accept: "application/json",
-      //       data: encodedAudio,
-      //       contentType: "application/json",
-      //       // ContentType: "multipart/from-data",
-      //     },
-      //   });
-      //   return speechDetails;
-      // } catch (error) {
-      //   console.log(error, "error ");
-      // }
     }
   };
   const handleReccord = () => {
     setCancelRec(false);
-    console.log(cancelRec, "cancelRec");
   };
   return (
     <div className="controls-container">

@@ -1,5 +1,4 @@
 .voice-record-content {
-  /* width:auto; */
   height: 47px;
   display: flex;
   justify-content: center;
@@ -7,7 +6,6 @@
   position: absolute;
   bottom: 2px;
   right: 53px;
-  /* left: -204px; */
   z-index: 1111;
 }
 .voice-record-content .voice-record-icon {

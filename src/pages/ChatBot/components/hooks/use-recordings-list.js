@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { deleteAudio } from "../handlers/recordings-list";
 import generateKey from "../utils/generate-key";
 

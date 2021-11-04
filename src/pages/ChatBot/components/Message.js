@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
+import TextToSpeech from "./textToSpeech";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Message = ({ message }) => {
+const Message = ({ message, audio }) => {
   const classes = useStyles();
 
   return (
@@ -42,6 +43,7 @@ const Message = ({ message }) => {
         <img src="/bot_avatar.svg" className={classes.avatar} alt="" />
       </div>
       <div className={classes.content}>{message}</div>
+      <TextToSpeech audio={audio} />
     </div>
   );
 };
