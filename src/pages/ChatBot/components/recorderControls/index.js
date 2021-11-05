@@ -34,7 +34,7 @@ const RecorderControls = ({
     }
   };
 
-  const handleRecord = () => {
+  const handleReccord = () => {
     setCancelRec(false);
   };
 
@@ -51,50 +51,46 @@ const RecorderControls = ({
             </>
           )}
         </div>
-
-        <div className="start-button-container">
-          {initRecording ? (
+        {initRecording && (
+          <div className="cancel-button-container">
             <button
-              className={initRecording ? "border-none" : "start-button"}
-              title="Save recording"
-              disabled={recordingSeconds === 0}
-              onClick={saveRecording}
+              className="cancel-button"
+              title="Cancel recording"
+              onClick={cancelRecording}
             >
               <i
-                className="fas fa-save save-record"
-                style={{ fontSize: "1.3rem" }}
-                onClick={handleSaveVoice}
+                className="fas fa-trash"
+                style={{ fontSize: "1rem" }}
+                onClick={handleReccord}
               />
             </button>
-          ) : (
-            <button
-              className="start-button"
-              title="Start recording"
-              onClick={startRecording}
-            >
-              <i
-                className="fas fa-microphone "
-                style={{ fontSize: "1.3rem" }}
-              />
-            </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-      {initRecording && (
-        <div className="cancel-button-container">
+      <div className="start-button-container">
+        {initRecording ? (
           <button
-            className="cancel-button"
-            title="Cancel recording"
-            onClick={cancelRecording}
+            className={initRecording ? "border-none" : "start-button"}
+            title="Save recording"
+            disabled={recordingSeconds === 0}
+            onClick={saveRecording}
           >
             <i
-              className="fas fa-trash"
-              style={{ fontSize: "1rem" }}
-              onClick={handleRecord}
+              className="fas fa-save save-record"
+              style={{ fontSize: "1.3rem" }}
+              onClick={handleSaveVoice}
             />
           </button>
-        </div>
-      )}
+        ) : (
+          <button
+            className="start-button"
+            title="Start recording"
+            onClick={startRecording}
+          >
+            <i className="fas fa-microphone " style={{ fontSize: "1.3rem" }} />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
