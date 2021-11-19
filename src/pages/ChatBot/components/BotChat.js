@@ -2,35 +2,26 @@ import React, { useEffect, useState } from "react";
 import useAsync from "../../../hooks/useAsync";
 import Message from "./Message";
 import { interceptor } from "../../../utils/interceptor";
-import {Nu} from "react-flags-select";
 
 const axiosInstance = interceptor();
 
-const BotChat = ({ steps, triggerNextStep,voiceText }) => {
+const BotChat = ({ steps, triggerNextStep }) => {
   const { data, status, error, setData, run } = useAsync();
   const [audio, setAudio] = useState(null);
   const [questionResponse, setQuestionResponse] = useState(null);
 
   const loading = status === "idle" || status === "pending";
-  let textInput = document.querySelector(".rsc-input").getAttribute('id')
-  console.log('ohayo',steps)
-  const search = steps?.search?.value ? steps?.search?.value :  textInput
-
+  const search = steps?.search?.value;
 
   useEffect(() => {
+
     if (search) {
-      let index = document.querySelector(".rsc-input").getAttribute('index')
-
-
-    console.log('query',document.querySelector('.rsc-ts-bubble'))
       const getChatResponse = (userMessage) => {
         return axiosInstance
           .post("/api/chatbot/respond", { question: userMessage })
           .then((response) => {
             if (response) {
               setQuestionResponse(response.data);
-              let text =   document.querySelectorAll('.rsc-ts-bubble');
-              document.querySelectorAll('.rsc-ts-bubble')[text.length -1].innerHTML = document.querySelector(".rsc-input").getAttribute('id')
               return response.data;
             } else return "もう一度入力してください！";
           })
@@ -41,6 +32,7 @@ const BotChat = ({ steps, triggerNextStep,voiceText }) => {
   }, [run]);
 
   useEffect(() => {
+
     if (questionResponse) {
       const payload = {
         text: questionResponse,
@@ -49,6 +41,7 @@ const BotChat = ({ steps, triggerNextStep,voiceText }) => {
         .post(`/api/chatbot/texttospeech`, payload)
         .then((response) => {
           let voice = response?.data?.audio_file;
+          console.log(response?.data)
           setAudio(voice);
         })
         .catch((error) => console.log(error));
@@ -64,7 +57,9 @@ const BotChat = ({ steps, triggerNextStep,voiceText }) => {
   return (
     <>
       {loading ? null : (
-        <Message message={status === "resolved" ? document.querySelector(".rsc-input").getAttribute('id') : error} audio={audio} />
+          <div data-key ={`${status === "resolved" ? data : error}`}>
+        <Message message={status === "resolved" ? data : error} audio={audio} />
+          </div>
       )}
     </>
   );

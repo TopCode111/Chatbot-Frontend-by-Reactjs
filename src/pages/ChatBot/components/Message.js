@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Avatar, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import TextToSpeech from "./textToSpeech";
@@ -34,15 +34,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const Message = ({ message, audio }) => {
   const classes = useStyles();
+
   return (
-    <div className={classes.root}>
-      <div className={classes.avatarWrap}>
-        <img src="/bot_avatar.svg" className={classes.avatar} alt="" />
+    <div className={classes.root} data-key ={message}>
+      <div className={classes.avatarWrap} data-key ={message}>
+        <img src="/bot_avatar.svg" className={classes.avatar} alt="" data-key ={message}/>
       </div>
       <div className={classes.content}>{message}</div>
-      <TextToSpeech audio={audio} />
+      <TextToSpeech audio={audio} message={message}/>
     </div>
   );
 };
