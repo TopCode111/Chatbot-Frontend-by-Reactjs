@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import ChatBot from "react-simple-chatbot";
 import { Box, ListItem } from "@material-ui/core";
 import SearchBar from "../../components/SearchBar";
@@ -34,7 +34,35 @@ const BotRedirect = ({ url, message }) => {
 
 const ChatPage = () => {
   const currentUser = localStorageService.getCurrentUser();
+  const [voiceText, setVoiceText] = useState('')
+    const [index, setindex] = useState('0')
   // const classes = useStyles();
+                    const inputRef = useRef(null)
+  useEffect(()=>{
+    if(document.querySelector(".rsc-input")) {
+                let textInput = document.querySelector(".rsc-input")
+                   textInput.setAttribute('value','')
+      console.log('textInput',textInput)
+      }
+
+  },[])
+   useEffect(()=>{
+        if(document.querySelector(".rsc-input")) {
+              let textInput = document.querySelector(".rsc-input")
+           textInput.focus();    
+          textInput.setAttribute('value',voiceText)
+          textInput.setAttribute('id',voiceText)
+            if(index == 0){
+
+               textInput.setAttribute('index',index+1)
+            }else {
+                 textInput.setAttribute('index',index+2)
+            }
+
+            console.log(steps)
+
+        }
+   },[voiceText])
 
   const steps = [
     {
@@ -46,16 +74,21 @@ const ChatPage = () => {
       id: "search",
       user: true,
       validator: (value) => {
-        if (!value) {
+        let textInput = document.querySelector(".rsc-input")
+       textInput.setAttribute('value',voiceText)  
+        if (value || textInput) {
+          return true;
+
+        }else {
           return "入力してください！";
         }
-        return true;
+
       },
       trigger: "3",
     },
     {
       id: "3",
-      component: <BotChat />,
+      component: <BotChat voiceText={voiceText}/>,
       waitAction: true,
       trigger: "search",
     },
@@ -69,14 +102,29 @@ const ChatPage = () => {
   }
 
   const handleAddText = () => {
-    let ls = localStorage.getItem("speechResponse");
-    let textInput = document.querySelector("input");
-    if (ls !== "") {
-      textInput.value = ls;
-      console.log(ls);
-    }
-  };
+    debugger
 
+
+      (async ()=>{
+        let ls = await localStorage.getItem("speechResponse");
+        let textInput = await document.querySelector(".rsc-input");
+        console.log('validator',textInput)
+        if (ls !== "") {
+          if(textInput && ls ){
+            setVoiceText(ls)
+            console.log(textInput)
+          }
+
+        }
+      })()
+
+
+
+
+
+
+  };
+         console.log('koni',voiceText)
   return (
     <Box
       style={{
@@ -91,6 +139,8 @@ const ChatPage = () => {
       <ChatBot
         // recognitionEnable={true}
         steps={steps}
+        voiceText = {voiceText}
+        recognitionEnable={false}
         hideHeader={true}
         classeName={"myclassname"}
         avatarStyle={{ background: "none", boxShadow: "none" }}

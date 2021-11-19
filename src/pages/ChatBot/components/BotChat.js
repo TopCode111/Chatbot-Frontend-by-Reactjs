@@ -2,25 +2,35 @@ import React, { useEffect, useState } from "react";
 import useAsync from "../../../hooks/useAsync";
 import Message from "./Message";
 import { interceptor } from "../../../utils/interceptor";
+import {Nu} from "react-flags-select";
 
 const axiosInstance = interceptor();
 
-const BotChat = ({ steps, triggerNextStep }) => {
+const BotChat = ({ steps, triggerNextStep,voiceText }) => {
   const { data, status, error, setData, run } = useAsync();
   const [audio, setAudio] = useState(null);
   const [questionResponse, setQuestionResponse] = useState(null);
 
   const loading = status === "idle" || status === "pending";
-  const search = steps?.search?.value;
+  let textInput = document.querySelector(".rsc-input").getAttribute('id')
+  console.log('ohayo',steps)
+  const search = steps?.search?.value ? steps?.search?.value :  textInput
+
 
   useEffect(() => {
     if (search) {
+      let index = document.querySelector(".rsc-input").getAttribute('index')
+
+
+    console.log('query',document.querySelector('.rsc-ts-bubble'))
       const getChatResponse = (userMessage) => {
         return axiosInstance
           .post("/api/chatbot/respond", { question: userMessage })
           .then((response) => {
             if (response) {
               setQuestionResponse(response.data);
+              let text =   document.querySelectorAll('.rsc-ts-bubble');
+              document.querySelectorAll('.rsc-ts-bubble')[text.length -1].innerHTML = document.querySelector(".rsc-input").getAttribute('id')
               return response.data;
             } else return "もう一度入力してください！";
           })
@@ -54,7 +64,7 @@ const BotChat = ({ steps, triggerNextStep }) => {
   return (
     <>
       {loading ? null : (
-        <Message message={status === "resolved" ? data : error} audio={audio} />
+        <Message message={status === "resolved" ? document.querySelector(".rsc-input").getAttribute('id') : error} audio={audio} />
       )}
     </>
   );
